@@ -1,12 +1,34 @@
 import { Knex } from "knex";
-import dotenv from "dotenv";
+import path from "path";
 
-dotenv.config();
+const config: { [key: string]: Knex.Config } = {
+  development: {
+    client: "sqlite3",
+    connection: {
+      filename: path.resolve(__dirname, "database.sqlite"), // Development DB
+    },
+    useNullAsDefault: true,
+    migrations: {
+      directory: path.resolve(__dirname, "migrations"),
+    },
+    seeds: {
+      directory: path.resolve(__dirname, "seeds"),
+    },
+  },
 
-const config: Knex.Config = {
-  client: "sqlite3",
-  connection: { filename: "./dev.sqlite3" },
-  useNullAsDefault: true
+  test: {
+    client: "sqlite3",
+    connection: {
+      filename: path.resolve(__dirname, "test-database.sqlite"), // Test DB
+    },
+    useNullAsDefault: true,
+    migrations: {
+      directory: path.resolve(__dirname, "migrations"),
+    },
+    seeds: {
+      directory: path.resolve(__dirname, "seeds"),
+    },
+  },
 };
 
 export default config;
