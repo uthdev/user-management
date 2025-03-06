@@ -17,53 +17,30 @@ export class PaginatedUsers {
 
 export class UserRepository {
   static async getAll(pageNumber = 0, pageSize = 10): Promise<PaginatedUsers> {
-    try {
-      // Get total count of users
-      const totalCountResult = await knex("users").count("id as total").first();
-      const totalCount = totalCountResult ? Number(totalCountResult.total) : 0;
+    const totalCountResult = await knex("users").count("id as total").first();
+    const totalCount = totalCountResult ? Number(totalCountResult.total) : 0;
 
-      // Fetch paginated users
-      const users: User[] = await knex("users")
-        .limit(pageSize)
-        .offset(pageNumber * pageSize);
+    const users: User[] = await knex("users")
+      .limit(pageSize)
+      .offset(pageNumber * pageSize);
 
-      // Return formatted paginated response
-      return new PaginatedUsers(users, totalCount, pageSize, pageNumber);
-    } catch (error) {
-      throw new Error("Error fetching users");
-    }
+    return new PaginatedUsers(users, totalCount, pageSize, pageNumber);
   }
 
   static async getCount() {
-    try {
-      return await knex("users").count("id as total").first();
-    } catch (error) {
-      throw new Error("Error fetching user count");
-    }
+    return await knex("users").count("id as total").first();
   }
 
   static async getById(id: number) {
-    try {
-      return await knex("users").where({ id }).first();
-    } catch (error) {
-      throw new Error("Error fetching user details");
-    }
+    return await knex("users").where({ id }).first();
   }
 
   static async getByEmail(email: string) {
-    try {
-      return await knex("users").where({ email }).first();
-    } catch (error) {
-      throw new Error("Error fetching user details");
-    }
+    return await knex("users").where({ email }).first();
   }
 
   static async create(user: User) {
-    try {
-      const [id] = await knex("users").insert(user);
-      return { id, ...user };
-    } catch (error) {
-      throw new Error("Error creating user");
-    }
+    const [id] = await knex("users").insert(user);
+    return { id, ...user };
   }
 }
