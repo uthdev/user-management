@@ -13,12 +13,12 @@ describe("Address API", () => {
   });
 
   afterAll(async () => {
-    await knex.destroy(); // Close database connection
-    server.close(); // Close Express server
+    await knex.destroy();
+    server.close();
   });
 
   afterEach(() => {
-    jest.restoreAllMocks(); // Reset mocks after each test
+    jest.restoreAllMocks();
   });
 
   const mockAddress = { id: 1, street: "123 Main St", city: "New York", state: "NY", zip_code: "10001", user_id: 1 };

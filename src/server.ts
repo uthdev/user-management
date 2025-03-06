@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { errorHandler } from "./middlewares/errorHandler";
 import userRoutes from "./routes/user.routes";
 import addressRoutes from "./routes/address.routes";
+import postRoutes from "./routes/post.routes";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(cors({
 
 app.use("/api", userRoutes);
 app.use('/api', addressRoutes);
+app.use("/api", postRoutes);
 
 app.use(errorHandler);
 
