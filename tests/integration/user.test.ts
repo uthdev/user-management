@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../src/server';
+import {app, server } from '../../src/server';
 import knex from '../../src/db/knex';
 import { UserRepository } from "../../src/repositories/user.repository";
 
@@ -13,7 +13,8 @@ describe('User API', () => {
   });
 
   afterAll(async () => {
-    await knex.destroy();
+    await knex.destroy(); // Close database connection
+    server.close(); // Close Express server
   });
 
   afterEach(() => {
