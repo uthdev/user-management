@@ -7,8 +7,6 @@ import addressRoutes from "./routes/address.routes";
 import postRoutes from "./routes/post.routes";
 // import { setupSwagger } from "./config/swagger";
 
-
-
 dotenv.config();
 
 const app = express();
